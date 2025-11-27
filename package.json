@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "This is a reference project for the DVOPS subject",
   "main": "index.js",
-  
   "scripts": {
-    "test": "jest --verbase"
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
