@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
-    "test-frontend": "npx playwright test"
+    "test:coverage": "jest --verbose --coverage",
+    "test-frontend": "npx playwright test",
+    "test-frontend:coverage": "node generate-coverage.js"
   },
   "keywords": [],
   "author": "",

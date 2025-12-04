@@ -1,7 +1,10 @@
+import './playright-coverage.js';
 import { test, expect } from '@playwright/test';
 import fs from 'fs/promises';
 import path from 'path';
 import config from '../playwright.config';
+
+
 const BASE_URL = 'http://localhost:5050';
 const RESOURCES_FILE = path.join(__dirname, '../utils/resources.json');
 test.beforeAll(async () => {
