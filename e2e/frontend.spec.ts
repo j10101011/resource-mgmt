@@ -37,7 +37,7 @@ test.beforeAll(async () => {
     console.log('resources.json initialized for browsers:', browsers.join(', '));
 });
 test.describe('Resource Mgmt CRUD Frontend Tests', () => {
-    test('Create Resource', async ({ page, browserName }) => {
+    test('Create Resource - Backend Error', async ({ page, browserName }) => {
         await page.goto(BASE_URL);
         const resourceName = `Projector-${browserName}`;
         // Open modal
@@ -47,8 +47,28 @@ test.describe('Resource Mgmt CRUD Frontend Tests', () => {
         await page.fill('#location', 'Room 101');
         await page.fill('#description', 'HD Projector');
         await page.fill('#owner', 'admin@example.com');
+
+        await page.route('**/add-resource', route => {
+            route.fulfill({
+                status: 500,
+                contentType: 'application/json',
+                body: JSON.stringify({ message: 'Simulated backend error' }),
+            });
+        });
+
+
+
+
         // Submit the new resource
         await page.click('button:has-text("Add New Resource")');
+
+        page.once('dialog', dialog => {
+            expect(dialog.message()).toBe('Unable to add resource!')
+            dialog.accept();
+        });
+
+
+
         // Accept confirmation dialog
         page.once('dialog', dialog => dialog.accept());
         // Wait for modal to close
