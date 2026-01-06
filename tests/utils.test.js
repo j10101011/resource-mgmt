@@ -17,7 +17,8 @@ describe('Unit Tests for Utils', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
-    it('addResource should add a resource', async () => {
+    it('addResource should encounter the ENOENT error', async () => {
+        fs.readFile.mockRejectedValueOnce({ code: 'ENOENT' });
         // Mock template file so it has an initial array
         const templateData = JSON.stringify([]);
         fs.readFile.mockResolvedValueOnce(templateData); // this resolves the template file
